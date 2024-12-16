@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import eslintPlugin from 'vite-plugin-eslint'
 
-// vite.config.js
 export default defineConfig({
   plugins: [eslintPlugin({ cache: false })],
   server: {
@@ -24,9 +23,11 @@ export default defineConfig({
         compact: true,
         globals: {
           jquery: '$',
+          gsap: 'gsap',
+          lenis: 'lenis', // Global GSAP object
         },
       },
-      external: ['jquery'],
+      external: ['jquery', 'gsap', 'gsap/ScrollTrigger', 'lenis'], // Exclude ScrollTrigger too
     },
   },
 })

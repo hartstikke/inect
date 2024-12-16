@@ -16,16 +16,16 @@
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
+    "gsap": "^3.12.5",
     "jquery": "^3.7.1",
+    "lenis": "^1.1.18",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
+    "split-type": "^0.3.4",
     "vite": "^2.7.2",
     "vite-plugin-eslint": "^1.3.0"
   },
   "dependencies": {
-    "datatables.net-dt": "^2.1.3",
-    "gsap": "^3.12.5",
-    "lenis": "^1.1.13",
-    "split-type": "^0.3.4"
+    "datatables.net-dt": "^2.1.3"
   }
 }
