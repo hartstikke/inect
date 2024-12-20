@@ -19,15 +19,16 @@ export default defineConfig({
       output: {
         format: 'umd',
         entryFileNames: 'main.js',
-        esModule: false,
+        esModule: true,
         compact: true,
         globals: {
           jquery: '$',
+          lenis: 'lenis',
           gsap: 'gsap',
-          lenis: 'lenis', // Global GSAP object
+          ScrollTrigger: 'gsap',
         },
       },
-      external: ['jquery', 'gsap', 'gsap/ScrollTrigger', 'lenis'], // Exclude ScrollTrigger too
+      external: ['jquery', 'lenis', 'gsap'], // Removed 'gsap'
     },
   },
 })
