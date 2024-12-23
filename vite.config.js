@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [eslintPlugin({ cache: false })],
   server: {
     host: 'localhost',
+    port: 3000,
     cors: '*',
     hmr: {
       host: 'localhost',
