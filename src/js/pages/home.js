@@ -1,10 +1,8 @@
 import gsap from 'gsap'
-import Flip from 'gsap/flip'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
 import { EASE } from '../easings/easing'
 gsap.registerPlugin(ScrollTrigger)
-gsap.registerPlugin(Flip)
 
 function home() {
   const animateHeadings = () => {
@@ -45,7 +43,7 @@ function home() {
     ScrollTrigger.create({
       trigger: '.hero_title',
       start: 'top bottom',
-      markers: true,
+      // markers: true,
       onEnter: () => heroTitleTl.play(),
     })
 
@@ -59,7 +57,7 @@ function home() {
     ScrollTrigger.create({
       trigger: '.hero_text',
       start: 'top bottom',
-      markers: true,
+      // markers: true,
       onEnter: () => heroTextTl.play(),
     })
 
@@ -73,7 +71,7 @@ function home() {
     ScrollTrigger.create({
       trigger: '.hero_buttons',
       start: 'top bottom',
-      markers: true,
+      // markers: true,
       onEnter: () => heroButtonsTl.play(),
     })
     //Hero title is the scrolltrigger
@@ -143,10 +141,10 @@ function home() {
       ScrollTrigger.create({
         trigger: '.what_container',
         start: 'top 50%',
-        markers: true,
+        // markers: true,
         onEnter: () => tl.play(),
         onLeaveBack: () => tl.reverse(),
-        onEnterBack: () => tl.reverse(),
+        onEnterBack: () => tl.play(),
         onLeave: () => tl.reverse(),
       })
     })
@@ -172,7 +170,7 @@ function home() {
       ScrollTrigger.create({
         trigger: '.about_component',
         start: 'top 50%',
-        markers: true,
+        // markers: true,
         onEnter: () => tl.play(),
         onLeaveBack: () => tl.reverse(),
         onEnterBack: () => tl.play(),
@@ -202,7 +200,7 @@ function home() {
       ScrollTrigger.create({
         trigger: '.values_item-list',
         start: 'top 50%',
-        markers: true,
+        // markers: true,
         onEnter: () => tl.play(),
         onLeaveBack: () => tl.reverse(),
         onEnterBack: () => tl.play(),
