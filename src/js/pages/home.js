@@ -23,6 +23,7 @@ function home() {
       ScrollTrigger.create({
         trigger: item,
         start: 'top 90%',
+        end: 'bottom top',
         // markers: true,
         onEnter: () => tl.play(),
         onLeaveBack: () => tl.reverse(),
@@ -45,6 +46,9 @@ function home() {
       start: 'top bottom',
       // markers: true,
       onEnter: () => heroTitleTl.play(),
+      onLeaveBack: () => heroTitleTl.reverse(),
+      onEnterBack: () => heroTitleTl.play(),
+      onLeave: () => heroTitleTl.reverse(),
     })
 
     let heroTextTl = gsap.timeline({ paused: true })
@@ -56,9 +60,12 @@ function home() {
 
     ScrollTrigger.create({
       trigger: '.hero_text',
-      start: 'top bottom',
+      start: '-50% bottom',
       // markers: true,
       onEnter: () => heroTextTl.play(),
+      onLeaveBack: () => heroTextTl.reverse(),
+      onEnterBack: () => heroTextTl.play(),
+      onLeave: () => heroTextTl.reverse(),
     })
 
     let heroButtonsTl = gsap.timeline({ paused: true })
@@ -70,9 +77,12 @@ function home() {
 
     ScrollTrigger.create({
       trigger: '.hero_buttons',
-      start: 'top bottom',
+      start: '-100% bottom',
       // markers: true,
       onEnter: () => heroButtonsTl.play(),
+      onLeaveBack: () => heroButtonsTl.reverse(),
+      onEnterBack: () => heroButtonsTl.play(),
+      onLeave: () => heroButtonsTl.reverse(),
     })
     //Hero title is the scrolltrigger
   }
@@ -97,6 +107,9 @@ function home() {
         start: 'top 90%',
         // markers: true,
         onEnter: () => tl.play(),
+        onLeaveBack: () => tl.reverse(),
+        onEnterBack: () => tl.play(),
+        onLeave: () => tl.reverse(),
       })
     })
   }
@@ -163,13 +176,13 @@ function home() {
           clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
           ease: 'power4.out',
           duration: 1,
-          stagger: 0.2,
+          stagger: 1.5,
         }
       )
 
       ScrollTrigger.create({
         trigger: '.about_component',
-        start: 'top 50%',
+        start: 'bottom bottom',
         // markers: true,
         onEnter: () => tl.play(),
         onLeaveBack: () => tl.reverse(),
@@ -208,6 +221,32 @@ function home() {
       })
     })
   }
+  const contactAnimation = () => {
+    let tl = gsap.timeline({ paused: true })
+    tl.fromTo(
+      '.contact_content',
+      {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)',
+      },
+      {
+        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+        ease: 'power4.out',
+        duration: 1,
+      }
+    )
+
+    ScrollTrigger.create({
+      trigger: '.contact_content',
+      start: 'top 20%',
+      // markers: true,
+      onEnter: () => tl.play(),
+      onLeaveBack: () => tl.reverse(),
+      onEnterBack: () => tl.play(),
+      onLeave: () => tl.reverse(),
+    })
+  }
+
+  contactAnimation()
 
   animateHeadings()
   animateClients()
