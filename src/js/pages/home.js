@@ -191,7 +191,6 @@ function home() {
       })
     })
   }
-
   const itemsValues = () => {
     const items = document.querySelectorAll('.values_item')
 
@@ -205,14 +204,15 @@ function home() {
         {
           clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
           ease: 'power4.out',
-          duration: 1,
+          duration: 1.5,
           stagger: 0.2,
         }
       )
 
       ScrollTrigger.create({
         trigger: '.values_item-list',
-        start: 'top 50%',
+        start: 'top 85%',
+        end: 'bottom top',
         // markers: true,
         onEnter: () => tl.play(),
         onLeaveBack: () => tl.reverse(),
@@ -231,14 +231,14 @@ function home() {
       {
         clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
         ease: 'power4.out',
-        duration: 1,
+        duration: 1.5,
       }
     )
 
     ScrollTrigger.create({
       trigger: '.contact_content',
-      start: 'top 20%',
-      // markers: true,
+      start: 'top 60%',
+      markers: true,
       onEnter: () => tl.play(),
       onLeaveBack: () => tl.reverse(),
       onEnterBack: () => tl.play(),
