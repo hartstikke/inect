@@ -282,7 +282,7 @@ function home() {
       fraction = Math.min(1, fraction)
 
       if (video.duration > 0) {
-        video.currentTime = video.duration * fraction
+        video.currentTime = video.duration * fraction * 0.75
       }
 
       animationFrame = null // Reset the animation frame
