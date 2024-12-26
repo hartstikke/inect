@@ -120,16 +120,18 @@ function home() {
     // Define individual timelines for better control
     imgWraps.forEach((imgWrap) => {
       const speed = parseFloat(imgWrap.getAttribute('data-speed'))
-      gsap.to(imgWrap, {
+      let tl = gsap.timeline({ paused: true })
+      tl.to(imgWrap, {
         y: `${-3.8 * speed}rem `,
         ease: 'none',
-        scrollTrigger: {
-          trigger: '.what_container', // Use individual triggers
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-          // markers: true, // Debug markers
-        },
+        // })
+        // ScrollTrigger.create({
+        //   trigger: '.section_what',
+        //   start: 'top bottom',
+        //   end: 'bottom top',
+        //   scrub: true,
+        //   markers: true,
+        //   onEnter: () => tl.play(),
       })
     })
   }
@@ -238,7 +240,7 @@ function home() {
     ScrollTrigger.create({
       trigger: '.contact_content',
       start: 'top 60%',
-      markers: true,
+      // markers: true,
       onEnter: () => tl.play(),
       onLeaveBack: () => tl.reverse(),
       onEnterBack: () => tl.play(),
@@ -246,8 +248,61 @@ function home() {
     })
   }
 
-  contactAnimation()
+  // const videoAnimation = () => {
+  //   const section = document.querySelector('.section_hero')
+  //   const video = document.querySelector('.hero_video')
 
+  //   const distance = window.scrollY - section.offsetTop
+  //   const total = section.clientHeight - window.innerHeight
+
+  //   let percentage = distance / total
+  //   percentage = Math.max(0, percentage)
+  //   percentage = Math.min(percentage, 1)
+
+  //   if (video.duration > 0) {
+  //     video.currentTime = video.duration * percentage
+  //   }
+  // }
+
+  // window.addEventListener('scroll', videoAnimation)
+  const videoAnimation = () => {
+    const section = document.querySelector('.section_hero')
+    const video = document.querySelector('.hero_video')
+
+    const updateVideoPlayback = () => {
+      const distance = window.scrollY - section.offsetTop
+      const total = section.clientHeight - window.innerHeight
+
+      // Ensure total is not zero to avoid division by zero
+      if (total <= 0) return
+
+      // Calculate the playback position with 1/1000 precision
+      let fraction = distance / total
+      fraction = Math.max(0, fraction) // Clamp to [0, 1]
+      fraction = Math.min(1, fraction)
+
+      if (video.duration > 0) {
+        video.currentTime = video.duration * fraction
+      }
+
+      animationFrame = null // Reset the animation frame
+    }
+
+    let animationFrame = null
+
+    const onScroll = () => {
+      if (!animationFrame) {
+        animationFrame = requestAnimationFrame(updateVideoPlayback)
+      }
+    }
+
+    window.addEventListener('scroll', onScroll)
+  }
+
+  videoAnimation()
+
+  contactAnimation()
+  videoAnimation()
   animateHeadings()
   animateClients()
   heroAnimation()
