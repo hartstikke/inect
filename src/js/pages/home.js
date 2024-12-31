@@ -64,9 +64,9 @@ function home() {
         start: '-50% bottom',
         // markers: true,
         onEnter: () => heroTextTl.play(),
-        onLeaveBack: () => heroTextTl.reverse(),
-        onEnterBack: () => heroTextTl.play(),
-        onLeave: () => heroTextTl.reverse(),
+        // onLeaveBack: () => heroTextTl.reverse(),
+        // onEnterBack: () => heroTextTl.play(),
+        // onLeave: () => heroTextTl.reverse(),
       })
 
       let heroButtonsTl = gsap.timeline({ paused: true })
@@ -81,9 +81,9 @@ function home() {
         start: '-100% bottom',
         // markers: true,
         onEnter: () => heroButtonsTl.play(),
-        onLeaveBack: () => heroButtonsTl.reverse(),
-        onEnterBack: () => heroButtonsTl.play(),
-        onLeave: () => heroButtonsTl.reverse(),
+        // onLeaveBack: () => heroButtonsTl.reverse(),
+        // onEnterBack: () => heroButtonsTl.play(),
+        // onLeave: () => heroButtonsTl.reverse(),
       })
       //Hero title is the scrolltrigger
     }
