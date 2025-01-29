@@ -260,23 +260,7 @@ function home() {
     //   window.addEventListener('scroll', onScroll)
     // }
 
-    const initVideoAnimation = () => {
-      if (window.innerWidth <= 991) {
-        // Kill all ScrollTriggers when window is 991px or below
-        gsap.registerPlugin(ScrollTrigger)
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
-        return
-      }
-
-      console.clear()
-
-      const video = document.querySelector('.hero_video')
-      let src = video?.currentSrc || video?.src
-
-      if (!video) return
-
-      console.log(video, src)
-
+    const videoAnimation = () => {
       /* Make sure the video is 'activated' on iOS */
       function once(el, event, fn, opts) {
         var onceFn = function () {
@@ -287,64 +271,67 @@ function home() {
         return onceFn
       }
 
-      once(document.documentElement, 'touchstart', function () {
-        video.play()
-        video.pause()
-      })
+      if (window.innerWidth < 991) {
+        console.clear()
 
-      gsap.registerPlugin(ScrollTrigger)
+        const video = document.querySelector('.hero_video')
+        let src = video.currentSrc || video.src
+        console.log(video, src)
 
-      let tl = gsap.timeline({
-        defaults: { ease: 'none' },
-        scrollTrigger: {
-          trigger: '.section_hero',
-          start: 'top -50px',
-          end: 'bottom -200px',
-          scrub: true,
-        },
-      })
+        once(document.documentElement, 'touchstart', function () {
+          video.play()
+          video.pause()
+        })
 
-      once(video, 'loadedmetadata', () => {
-        tl.fromTo(
-          video,
-          { currentTime: 0 },
-          { currentTime: video.duration || 1 }
-        )
-      })
+        gsap.registerPlugin(ScrollTrigger)
 
-      /* Prevent browser dropping previously played segments */
-      setTimeout(function () {
-        if (window['fetch']) {
-          fetch(src)
-            .then((response) => response.blob())
-            .then((response) => {
-              var blobURL = URL.createObjectURL(response)
-              var t = video.currentTime
+        let tl = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: '.section_hero',
+            start: 'top -50px',
+            end: 'bottom -200px',
+            scrub: true,
+          },
+        })
 
-              once(document.documentElement, 'touchstart', function () {
-                video.play()
-                video.pause()
+        once(video, 'loadedmetadata', () => {
+          tl.fromTo(
+            video,
+            {
+              currentTime: 0,
+            },
+            {
+              currentTime: video.duration || 1,
+            }
+          )
+        })
+
+        /* When first coded, the Blobbing was important to ensure the browser wasn't dropping previously played segments, but it doesn't seem to be a problem now. Possibly based on memory availability? */
+        setTimeout(function () {
+          if (window['fetch']) {
+            fetch(src)
+              .then((response) => response.blob())
+              .then((response) => {
+                var blobURL = URL.createObjectURL(response)
+
+                var t = video.currentTime
+                once(document.documentElement, 'touchstart', function () {
+                  video.play()
+                  video.pause()
+                })
+
+                video.setAttribute('src', blobURL)
+                video.currentTime = t + 0.01
               })
-
-              video.setAttribute('src', blobURL)
-              video.currentTime = t + 0.01
-            })
-        }
-      }, 100)
+          }
+        }, 100)
+      }
     }
-
-    // Run on page load
-    initVideoAnimation()
-
-    // Run on window resize
-    window.addEventListener('resize', () => {
-      initVideoAnimation()
-    })
-
-    // window.addEventListener('scroll', videoAnimation)
 
     const init = () => {
       contactAnimation()
+      videoAnimation()
       animateHeadings()
       animateClients()
       heroAnimation()
