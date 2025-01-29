@@ -260,14 +260,21 @@ function home() {
     //   window.addEventListener('scroll', onScroll)
     // }
 
-    const videoAnimation = () => {
+    const initVideoAnimation = () => {
+      if (window.innerWidth <= 991) {
+        // Kill all ScrollTriggers when window is 991px or below
+        gsap.registerPlugin(ScrollTrigger)
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+        return
+      }
+
       console.clear()
 
-      // ffmpeg -i ~/Downloads/Toshiba\ video/original.mov -movflags faststart -vcodec libx264 -crf 23 -g 1 -pix_fmt yuv420p output.mp4
-      // ffmpeg -i ~/Downloads/Toshiba\ video/original.mov -vf scale=960:-1 -movflags faststart -vcodec libx264 -crf 20 -g 1 -pix_fmt yuv420p output_960.mp4
-
       const video = document.querySelector('.hero_video')
-      let src = video.currentSrc || video.src
+      let src = video?.currentSrc || video?.src
+
+      if (!video) return
+
       console.log(video, src)
 
       /* Make sure the video is 'activated' on iOS */
@@ -300,24 +307,20 @@ function home() {
       once(video, 'loadedmetadata', () => {
         tl.fromTo(
           video,
-          {
-            currentTime: 0,
-          },
-          {
-            currentTime: video.duration || 1,
-          }
+          { currentTime: 0 },
+          { currentTime: video.duration || 1 }
         )
       })
 
-      /* When first coded, the Blobbing was important to ensure the browser wasn't dropping previously played segments, but it doesn't seem to be a problem now. Possibly based on memory availability? */
+      /* Prevent browser dropping previously played segments */
       setTimeout(function () {
         if (window['fetch']) {
           fetch(src)
             .then((response) => response.blob())
             .then((response) => {
               var blobURL = URL.createObjectURL(response)
-
               var t = video.currentTime
+
               once(document.documentElement, 'touchstart', function () {
                 video.play()
                 video.pause()
@@ -328,15 +331,20 @@ function home() {
             })
         }
       }, 100)
-
-      /* ---------------------------------- */
     }
+
+    // Run on page load
+    initVideoAnimation()
+
+    // Run on window resize
+    window.addEventListener('resize', () => {
+      initVideoAnimation()
+    })
 
     // window.addEventListener('scroll', videoAnimation)
 
     const init = () => {
       contactAnimation()
-      videoAnimation()
       animateHeadings()
       animateClients()
       heroAnimation()
