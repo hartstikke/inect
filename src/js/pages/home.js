@@ -70,21 +70,23 @@ function home() {
         onEnter: () => heroButtonsTl.play(),
       })
 
-      const tl = gsap.timeline({
-        defaults: {
-          ease: 'none',
-        },
-        scrollTrigger: {
-          trigger: '.section_clients',
-          start: 'top bottom',
-          end: 'top top',
-          scrub: true,
-        },
-      })
+      if (window.innerWidth > 991) {
+        const tl = gsap.timeline({
+          defaults: {
+            ease: 'none',
+          },
+          scrollTrigger: {
+            trigger: '.section_clients',
+            start: 'top bottom',
+            end: 'top top',
+            scrub: true,
+          },
+        })
 
-      tl.to('.section_hero', {
-        y: '30vh',
-      })
+        tl.to('.section_hero', {
+          y: '30vh',
+        })
+      }
     }
 
     const animateClients = () => {
@@ -233,33 +235,6 @@ function home() {
       })
     }
 
-    // const videoAnimation = () => {
-    //   const section = document.querySelector('.section_hero')
-    //   const video = document.querySelector('.hero_video')
-    //   const updateVideoPlayback = () => {
-    //     const distance = window.scrollY - section.offsetTop
-    //     const total = section.clientHeight - window.innerHeight
-    //     // Ensure total is not zero to avoid division by zero
-    //     if (total <= 0) return
-    //     // Calculate the playback position with 1/1000 precision
-    //     let fraction = distance / total
-    //     fraction = Math.max(0, fraction) // Clamp to [0, 1]
-    //     fraction = Math.min(1, fraction)
-    //     if (video.duration > 0) {
-    //       video.currentTime = video.duration * fraction * 0.5
-    //     }
-    //     console.log(video.duration)
-    //     animationFrame = null // Reset the animation frame
-    //   }
-    //   let animationFrame = null
-    //   const onScroll = () => {
-    //     if (!animationFrame) {
-    //       animationFrame = requestAnimationFrame(updateVideoPlayback)
-    //     }
-    //   }
-    //   window.addEventListener('scroll', onScroll)
-    // }
-
     const videoAnimation = () => {
       /* Make sure the video is 'activated' on iOS */
       function once(el, event, fn, opts) {
@@ -271,7 +246,7 @@ function home() {
         return onceFn
       }
 
-      if (window.innerWidth < 991) {
+      if (window.innerWidth > 991) {
         console.clear()
 
         const video = document.querySelector('.hero_video')
