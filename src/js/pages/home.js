@@ -88,26 +88,24 @@ function home() {
     }
 
     const animateClients = () => {
-      const clients = document.querySelectorAll('.clients_link-text')
-
-      clients.forEach((item) => {
-        let tl = gsap.timeline({ paused: true })
-        tl.from(
-          item,
-          {
-            yPercent: 100,
-            duration: 0.6,
-            ease: 'power4.inOut',
-          },
-          0
-        )
-
-        ScrollTrigger.create({
-          trigger: item,
-          start: 'top 90%',
-          onEnter: () => tl.play(),
-        })
-      })
+      // const clients = document.querySelectorAll('.clients_link-text')
+      // clients.forEach((item) => {
+      //   let tl = gsap.timeline({ paused: true })
+      //   tl.from(
+      //     item,
+      //     {
+      //       yPercent: 100,
+      //       duration: 0.6,
+      //       ease: 'power4.inOut',
+      //     },
+      //     0
+      //   )
+      //   ScrollTrigger.create({
+      //     trigger: item,
+      //     start: 'top 90%',
+      //     onEnter: () => tl.play(),
+      //   })
+      // })
     }
 
     const createImageParallax = () => {
