@@ -25,11 +25,7 @@ function home() {
           trigger: item,
           start: 'top 90%',
           end: 'bottom top',
-          // markers: true,
           onEnter: () => tl.play(),
-          // onLeaveBack: () => tl.reverse(),
-          // onEnterBack: () => tl.play(),
-          // onLeave: () => tl.reverse(),
         })
       })
     }
@@ -45,11 +41,7 @@ function home() {
       ScrollTrigger.create({
         trigger: '.hero_title',
         start: 'top bottom',
-        // markers: true,
         onEnter: () => heroTitleTl.play(),
-        // onLeaveBack: () => heroTitleTl.reverse(),
-        // onEnterBack: () => heroTitleTl.play(),
-        // onLeave: () => heroTitleTl.reverse(),
       })
 
       let heroTextTl = gsap.timeline({ paused: true })
@@ -62,11 +54,7 @@ function home() {
       ScrollTrigger.create({
         trigger: '.hero_text',
         start: '-50% bottom',
-        // markers: true,
         onEnter: () => heroTextTl.play(),
-        // onLeaveBack: () => heroTextTl.reverse(),
-        // onEnterBack: () => heroTextTl.play(),
-        // onLeave: () => heroTextTl.reverse(),
       })
 
       let heroButtonsTl = gsap.timeline({ paused: true })
@@ -79,13 +67,24 @@ function home() {
       ScrollTrigger.create({
         trigger: '.hero_buttons',
         start: '-100% bottom',
-        // markers: true,
         onEnter: () => heroButtonsTl.play(),
-        // onLeaveBack: () => heroButtonsTl.reverse(),
-        // onEnterBack: () => heroButtonsTl.play(),
-        // onLeave: () => heroButtonsTl.reverse(),
       })
-      //Hero title is the scrolltrigger
+
+      const tl = gsap.timeline({
+        defaults: {
+          ease: 'none',
+        },
+        scrollTrigger: {
+          trigger: '.section_clients',
+          start: 'top bottom',
+          end: 'top top',
+          scrub: true,
+        },
+      })
+
+      tl.to('.section_hero', {
+        y: '30vh',
+      })
     }
 
     const animateClients = () => {
@@ -106,33 +105,19 @@ function home() {
         ScrollTrigger.create({
           trigger: item,
           start: 'top 90%',
-          // markers: true,
           onEnter: () => tl.play(),
-          // onLeaveBack: () => tl.reverse(),
-          // onEnterBack: () => tl.play(),
-          // onLeave: () => tl.reverse(),
         })
       })
     }
 
     const createImageParallax = () => {
       const imgWraps = gsap.utils.toArray('.what_item')
-
-      // Define individual timelines for better control
       imgWraps.forEach((imgWrap) => {
         const speed = parseFloat(imgWrap.getAttribute('data-speed'))
         let tl = gsap.timeline({ paused: true })
         tl.to(imgWrap, {
           y: `${-3.8 * speed}rem `,
           ease: 'none',
-          // })
-          // ScrollTrigger.create({
-          //   trigger: '.section_what',
-          //   start: 'top bottom',
-          //   end: 'bottom top',
-          //   scrub: true,
-          //   markers: true,
-          //   onEnter: () => tl.play(),
         })
       })
     }
@@ -157,11 +142,7 @@ function home() {
         ScrollTrigger.create({
           trigger: '.what_container',
           start: 'top 50%',
-          // markers: true,
           onEnter: () => tl.play(),
-          // onLeaveBack: () => tl.reverse(),
-          // onEnterBack: () => tl.play(),
-          // onLeave: () => tl.reverse(),
         })
       })
     }
@@ -186,11 +167,7 @@ function home() {
         ScrollTrigger.create({
           trigger: '.about_component',
           start: 'bottom bottom',
-          // markers: true,
           onEnter: () => tl.play(),
-          // onLeaveBack: () => tl.reverse(),
-          // onEnterBack: () => tl.play(),
-          // onLeave: () => tl.reverse(),
         })
       })
     }
@@ -216,11 +193,7 @@ function home() {
           trigger: '.values_item-list',
           start: 'top 85%',
           end: 'bottom top',
-          // markers: true,
           onEnter: () => tl.play(),
-          // onLeaveBack: () => tl.reverse(),
-          // onEnterBack: () => tl.play(),
-          // onLeave: () => tl.reverse(),
         })
       })
     }
@@ -241,76 +214,146 @@ function home() {
       ScrollTrigger.create({
         trigger: '.contact_content',
         start: 'top 60%',
-        // markers: true,
         onEnter: () => tl.play(),
-        // onLeaveBack: () => tl.reverse(),
-        // onEnterBack: () => tl.play(),
-        // onLeave: () => tl.reverse(),
+      })
+
+      const tlContact = gsap.timeline({
+        defaults: {
+          ease: 'none',
+        },
+        scrollTrigger: {
+          trigger: '.section_contact',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      })
+
+      tlContact.to('.contact_bg', {
+        height: '100%',
+        width: '100%',
       })
     }
 
     // const videoAnimation = () => {
     //   const section = document.querySelector('.section_hero')
     //   const video = document.querySelector('.hero_video')
-
-    //   const distance = window.scrollY - section.offsetTop
-    //   const total = section.clientHeight - window.innerHeight
-
-    //   let percentage = distance / total
-    //   percentage = Math.max(0, percentage)
-    //   percentage = Math.min(percentage, 1)
-
-    //   if (video.duration > 0) {
-    //     video.currentTime = video.duration * percentage
+    //   const updateVideoPlayback = () => {
+    //     const distance = window.scrollY - section.offsetTop
+    //     const total = section.clientHeight - window.innerHeight
+    //     // Ensure total is not zero to avoid division by zero
+    //     if (total <= 0) return
+    //     // Calculate the playback position with 1/1000 precision
+    //     let fraction = distance / total
+    //     fraction = Math.max(0, fraction) // Clamp to [0, 1]
+    //     fraction = Math.min(1, fraction)
+    //     if (video.duration > 0) {
+    //       video.currentTime = video.duration * fraction * 0.5
+    //     }
+    //     console.log(video.duration)
+    //     animationFrame = null // Reset the animation frame
     //   }
+    //   let animationFrame = null
+    //   const onScroll = () => {
+    //     if (!animationFrame) {
+    //       animationFrame = requestAnimationFrame(updateVideoPlayback)
+    //     }
+    //   }
+    //   window.addEventListener('scroll', onScroll)
     // }
 
-    // window.addEventListener('scroll', videoAnimation)
     const videoAnimation = () => {
-      const section = document.querySelector('.section_hero')
+      console.clear()
+      /* The encoding is super important here to enable frame-by-frame scrubbing. */
+
+      // ffmpeg -i ~/Downloads/Toshiba\ video/original.mov -movflags faststart -vcodec libx264 -crf 23 -g 1 -pix_fmt yuv420p output.mp4
+      // ffmpeg -i ~/Downloads/Toshiba\ video/original.mov -vf scale=960:-1 -movflags faststart -vcodec libx264 -crf 20 -g 1 -pix_fmt yuv420p output_960.mp4
+
       const video = document.querySelector('.hero_video')
+      video.src = '../../output_960.mp4'
+      let src = video.currentSrc || video.src
+      console.log(video, src)
 
-      const updateVideoPlayback = () => {
-        const distance = window.scrollY - section.offsetTop
-        const total = section.clientHeight - window.innerHeight
-
-        // Ensure total is not zero to avoid division by zero
-        if (total <= 0) return
-
-        // Calculate the playback position with 1/1000 precision
-        let fraction = distance / total
-        fraction = Math.max(0, fraction) // Clamp to [0, 1]
-        fraction = Math.min(1, fraction)
-
-        if (video.duration > 0) {
-          video.currentTime = video.duration * fraction * 0.5
+      /* Make sure the video is 'activated' on iOS */
+      function once(el, event, fn, opts) {
+        var onceFn = function () {
+          el.removeEventListener(event, onceFn)
+          fn.apply(this, arguments)
         }
-
-        animationFrame = null // Reset the animation frame
+        el.addEventListener(event, onceFn, opts)
+        return onceFn
       }
 
-      let animationFrame = null
+      once(document.documentElement, 'touchstart', function () {
+        video.play()
+        video.pause()
+      })
 
-      const onScroll = () => {
-        if (!animationFrame) {
-          animationFrame = requestAnimationFrame(updateVideoPlayback)
+      /* ---------------------------------- */
+      /* Scroll Control! */
+
+      gsap.registerPlugin(ScrollTrigger)
+
+      let tl = gsap.timeline({
+        defaults: { duration: 1 },
+        scrollTrigger: {
+          trigger: '.section_hero',
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: true,
+        },
+      })
+
+      once(video, 'loadedmetadata', () => {
+        tl.fromTo(
+          video,
+          {
+            currentTime: 0,
+          },
+          {
+            currentTime: video.duration || 1,
+          }
+        )
+      })
+
+      /* When first coded, the Blobbing was important to ensure the browser wasn't dropping previously played segments, but it doesn't seem to be a problem now. Possibly based on memory availability? */
+      setTimeout(function () {
+        if (window['fetch']) {
+          fetch(src)
+            .then((response) => response.blob())
+            .then((response) => {
+              var blobURL = URL.createObjectURL(response)
+
+              var t = video.currentTime
+              once(document.documentElement, 'touchstart', function () {
+                video.play()
+                video.pause()
+              })
+
+              video.setAttribute('src', blobURL)
+              video.currentTime = t + 0.01
+            })
         }
-      }
+      }, 1000)
 
-      window.addEventListener('scroll', onScroll)
+      /* ---------------------------------- */
     }
 
-    videoAnimation()
+    // window.addEventListener('scroll', videoAnimation)
 
-    contactAnimation()
-    videoAnimation()
-    animateHeadings()
-    animateClients()
-    heroAnimation()
-    createImageParallax()
-    itemsWhat()
-    itemsAbout()
-    itemsValues()
+    const init = () => {
+      contactAnimation()
+      videoAnimation()
+      animateHeadings()
+      animateClients()
+      heroAnimation()
+      createImageParallax()
+      itemsWhat()
+      itemsAbout()
+      itemsValues()
+    }
+
+    init()
   }
 }
 

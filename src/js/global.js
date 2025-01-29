@@ -2,8 +2,6 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
-// import nav from './nav'
-
 function global() {
   // Animate the HERO
   const animateHero = () => {}
@@ -18,7 +16,6 @@ function global() {
       animateHero()
       animateFooter()
     })
-    // nav()
   }
   init()
 }
