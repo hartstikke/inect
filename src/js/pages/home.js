@@ -291,7 +291,7 @@ function home() {
         defaults: { ease: 'none' },
         scrollTrigger: {
           trigger: '.section_hero',
-          start: 'top 100px',
+          start: 'top -50px',
           end: 'bottom -200px',
           scrub: true,
         },
