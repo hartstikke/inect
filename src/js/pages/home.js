@@ -33,7 +33,7 @@ function home() {
     const heroAnimation = () => {
       let heroTitleTl = gsap.timeline({ paused: true })
       heroTitleTl.from('.hero_title', {
-        y: 100,
+        y: '100%',
         duration: 1.5,
         ease: 'power4.inOut',
       })
@@ -46,7 +46,7 @@ function home() {
 
       let heroTextTl = gsap.timeline({ paused: true })
       heroTextTl.from('.hero_text', {
-        y: 300,
+        y: '100%',
         duration: 1.5,
         ease: 'power4.inOut',
       })
@@ -264,13 +264,11 @@ function home() {
 
     const videoAnimation = () => {
       console.clear()
-      /* The encoding is super important here to enable frame-by-frame scrubbing. */
 
       // ffmpeg -i ~/Downloads/Toshiba\ video/original.mov -movflags faststart -vcodec libx264 -crf 23 -g 1 -pix_fmt yuv420p output.mp4
       // ffmpeg -i ~/Downloads/Toshiba\ video/original.mov -vf scale=960:-1 -movflags faststart -vcodec libx264 -crf 20 -g 1 -pix_fmt yuv420p output_960.mp4
 
       const video = document.querySelector('.hero_video')
-      video.src = '../../output_960.mp4'
       let src = video.currentSrc || video.src
       console.log(video, src)
 
@@ -289,17 +287,14 @@ function home() {
         video.pause()
       })
 
-      /* ---------------------------------- */
-      /* Scroll Control! */
-
       gsap.registerPlugin(ScrollTrigger)
 
       let tl = gsap.timeline({
-        defaults: { duration: 1 },
+        defaults: { ease: 'none' },
         scrollTrigger: {
           trigger: '.section_hero',
-          start: 'top top',
-          end: 'bottom bottom',
+          start: 'top 100px',
+          end: 'bottom -200px',
           scrub: true,
         },
       })
@@ -334,7 +329,7 @@ function home() {
               video.currentTime = t + 0.01
             })
         }
-      }, 1000)
+      }, 100)
 
       /* ---------------------------------- */
     }
