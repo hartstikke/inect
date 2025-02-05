@@ -1,8 +1,9 @@
 import gsap from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
+import { ScrollTrigger } from 'gsap/all'
+
+gsap.registerPlugin(ScrollTrigger)
 
 import { EASE } from '../easings/easing'
-gsap.registerPlugin(ScrollTrigger)
 
 function home() {
   if (window.innerWidth > 1024) {
@@ -258,8 +259,6 @@ function home() {
           video.pause()
         })
 
-        gsap.registerPlugin(ScrollTrigger)
-
         let tl = gsap.timeline({
           defaults: { ease: 'none' },
           scrollTrigger: {
@@ -314,6 +313,8 @@ function home() {
       itemsWhat()
       itemsAbout()
       itemsValues()
+
+      console.log('ScrollTrigger Loaded:', gsap.plugins.ScrollTrigger)
     }
 
     init()
